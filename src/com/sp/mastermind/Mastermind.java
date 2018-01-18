@@ -1,12 +1,17 @@
 package com.sp.mastermind;
 
+// TODO imports
+import Integer;
+import NumberFormatException;
+
 public class Mastermind {
 
     private static final String STARTUP_TEXT = "";
+    private static final String NOT_SUPPORTED_INPUT_TEXT = "";
     private static final String GOODBYE_TEXT = "";
 
     public static void main(String[] args) {
-        System.out.println(STARTUP_TEXT);
+        System.out.print(STARTUP_TEXT);
         int programMode = getProgramMode();
         switch(programMode) {
             case 0:
@@ -26,7 +31,19 @@ public class Mastermind {
     }
 
     private static int getProgramMode() {
-        
+        String input = System.console.readLine();
+        int programMode;
+        try {
+            programMode = Integer.parseInt(input);
+            while(programMode < 0 || programMode > 2) {
+                System.out.print(NOT_SUPPORTED_INPUT_TEXT);
+                input = System.console.readLine();
+                programMode = Integer.parseInt(input);
+            }
+            return programMode;
+        } catch (NumberFormatException numberFormatException) {
+            System.out.print(NOT_SUPPORTED_INPUT_TEXT);
+            return getProgramMode();
+        }
     }
-
 }

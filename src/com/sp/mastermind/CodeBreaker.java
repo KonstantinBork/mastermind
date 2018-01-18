@@ -7,7 +7,10 @@ public class CodeBreaker {
     }
 
     public void loop() {
-        
+
     }
 
+    private char[] getInput() {
+
+    }
 }
