@@ -5,8 +5,11 @@ import java.util.Random;
 
 public class CodeMaker {
 
-    private static final String INPUT_TOO_LONG_TEXT = "";
-    private static final String NOT_SUPPORTED_INPUT_TEXT = "";
+    private static final String STARTUP_TEXT = "" +
+            "Unterstützte Eingaben sind die Zahlen 1 bis 6." +
+            "";
+    private static final String INPUT_TOO_LONG_TEXT = "Die Eingabe ist leider zu lang.";
+    private static final String NOT_SUPPORTED_INPUT_TEXT = "Die Eingabe wird nicht unterstützt!";
     private static final int CODE_SIZE = 4;
     private static final int NUMBER_OF_COLORS = 6;
     private int[] code = new int[CODE_SIZE];
@@ -21,6 +24,7 @@ public class CodeMaker {
     }
 
     public void loop() {
+        System.out.println(STARTUP_TEXT);
         boolean isRunning = true;
         while(isRunning) {
             int[] userInput = getInput();
@@ -41,14 +45,14 @@ public class CodeMaker {
             for(int i = 0; i < CODE_SIZE; i++) {
                 int currentColor = Integer.parseInt(String.valueOf(input.charAt(i)));
                 if(currentColor > 6) {
-                    System.out.print(NOT_SUPPORTED_INPUT_TEXT);
+                    System.out.println(NOT_SUPPORTED_INPUT_TEXT);
                     return getInput();
                 }
                 result[i] = currentColor;
             }
             return result;
         } catch(NumberFormatException numberFormatException) {
-            System.out.print(NOT_SUPPORTED_INPUT_TEXT);
+            System.out.println(NOT_SUPPORTED_INPUT_TEXT);
             return getInput();
         }
     }

@@ -2,9 +2,12 @@ package com.sp.mastermind;
 
 public class Mastermind {
 
-    private static final String STARTUP_TEXT = "";
-    private static final String NOT_SUPPORTED_INPUT_TEXT = "";
-    private static final String GOODBYE_TEXT = "";
+    private static final String STARTUP_TEXT = "" +
+            "Hallo bei Mastermind.\n" +
+            "Wähle zunächst den Modus: (1) Codemaker, (2) Codebreaker, (0) Beenden\n" +
+            "";
+    private static final String NOT_SUPPORTED_INPUT_TEXT = "Die Eingabe wird nicht unterstützt!";
+    private static final String GOODBYE_TEXT = "Bis bald.";
 
     public static void main(String[] args) {
         System.out.print(STARTUP_TEXT);
@@ -32,13 +35,13 @@ public class Mastermind {
         try {
             programMode = Integer.parseInt(input);
             while(programMode < 0 || programMode > 2) {
-                System.out.print(NOT_SUPPORTED_INPUT_TEXT);
+                System.out.println(NOT_SUPPORTED_INPUT_TEXT);
                 input = System.console().readLine();
                 programMode = Integer.parseInt(input);
             }
             return programMode;
         } catch (NumberFormatException numberFormatException) {
-            System.out.print(NOT_SUPPORTED_INPUT_TEXT);
+            System.out.println(NOT_SUPPORTED_INPUT_TEXT);
             return getProgramMode();
         }
     }
