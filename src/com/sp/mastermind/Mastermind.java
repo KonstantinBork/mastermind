@@ -6,13 +6,12 @@ public class Mastermind {
             "Hallo bei Mastermind.\n" +
             "Wähle zunächst den Modus: (1) Codemaker, (2) Codebreaker, (0) Beenden\n" +
             "";
-    private static final String NOT_SUPPORTED_INPUT_TEXT = "Die Eingabe wird nicht unterstützt!";
     private static final String GOODBYE_TEXT = "Bis bald.";
 
     public static void main(String[] args) {
         System.out.print(STARTUP_TEXT);
         int programMode = getProgramMode();
-        switch(programMode) {
+        switch (programMode) {
             case 0:
                 System.out.println(GOODBYE_TEXT);
             case 1:
@@ -34,14 +33,14 @@ public class Mastermind {
         int programMode;
         try {
             programMode = Integer.parseInt(input);
-            while(programMode < 0 || programMode > 2) {
-                System.out.println(NOT_SUPPORTED_INPUT_TEXT);
+            while (programMode < 0 || programMode > 2) {
+                System.out.println(MastermindUtils.NOT_SUPPORTED_INPUT_TEXT);
                 input = System.console().readLine();
                 programMode = Integer.parseInt(input);
             }
             return programMode;
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(NOT_SUPPORTED_INPUT_TEXT);
+            System.out.println(MastermindUtils.NOT_SUPPORTED_INPUT_TEXT);
             return getProgramMode();
         }
     }

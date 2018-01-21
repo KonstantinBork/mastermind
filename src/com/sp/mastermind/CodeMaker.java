@@ -5,31 +5,31 @@ import java.util.Random;
 
 public class CodeMaker {
 
-    private static final String STARTUP_TEXT = "" +
-            "Unterstützte Eingaben sind die Zahlen 1 bis 6." +
-            "";
-    private static final String INPUT_TOO_LONG_TEXT = "Die Eingabe ist leider zu lang.";
-    private static final String NOT_SUPPORTED_INPUT_TEXT = "Die Eingabe wird nicht unterstützt!";
-    private static final int CODE_SIZE = 4;
-    private static final int NUMBER_OF_COLORS = 6;
-    private int[] code = new int[CODE_SIZE];
+    private static final String STARTUP_TEXT = "Unterstützte Eingaben sind die Zahlen 1 bis 6.";
+    private int[] code;
     private String successString;
 
     CodeMaker() {
         Random random = new Random();
-        for(int i = 0; i < CODE_SIZE; i++) {
-            code[i] = random.nextInt(NUMBER_OF_COLORS) + 1;
+        code = new int[MastermindUtils.CODE_SIZE];
+        for (int i = 0; i < MastermindUtils.CODE_SIZE; i++) {
+            int temp = random.nextInt(MastermindUtils.NUMBER_OF_COLORS) + 1;
+            while (MastermindUtils.arrayContains(temp, code)) {
+                temp = random.nextInt(MastermindUtils.NUMBER_OF_COLORS) + 1;
+            }
+            code[i] = temp;
         }
-        successString = String.join("", Collections.nCopies(CODE_SIZE, "b"));
+        successString = String.join("", Collections.nCopies(MastermindUtils.CODE_SIZE, "b"));
     }
 
     public void loop() {
         System.out.println(STARTUP_TEXT);
         boolean isRunning = true;
-        while(isRunning) {
+        while (isRunning) {
             int[] userInput = getInput();
             String resultOutput = evaluateInput(userInput);
-            if(resultOutput.equals(successString)) {
+            System.out.println(resultOutput);
+            if (resultOutput.equals(successString)) {
                 isRunning = false;
             }
         }
@@ -37,22 +37,22 @@ public class CodeMaker {
 
     private int[] getInput() {
         String input = System.console().readLine();
-        if(input.length() > CODE_SIZE) {
-            System.out.println(INPUT_TOO_LONG_TEXT);
+        if (input.length() > MastermindUtils.CODE_SIZE) {
+            System.out.println(MastermindUtils.INPUT_TOO_LONG_TEXT);
         }
         try {
-            int[] result = new int[CODE_SIZE];
-            for(int i = 0; i < CODE_SIZE; i++) {
+            int[] result = new int[MastermindUtils.CODE_SIZE];
+            for (int i = 0; i < MastermindUtils.CODE_SIZE; i++) {
                 int currentColor = Integer.parseInt(String.valueOf(input.charAt(i)));
-                if(currentColor > 6) {
-                    System.out.println(NOT_SUPPORTED_INPUT_TEXT);
+                if (currentColor > 6) {
+                    System.out.println(MastermindUtils.NOT_SUPPORTED_INPUT_TEXT);
                     return getInput();
                 }
                 result[i] = currentColor;
             }
             return result;
-        } catch(NumberFormatException numberFormatException) {
-            System.out.println(NOT_SUPPORTED_INPUT_TEXT);
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println(MastermindUtils.NOT_SUPPORTED_INPUT_TEXT);
             return getInput();
         }
     }
@@ -60,29 +60,20 @@ public class CodeMaker {
     private String evaluateInput(int[] userInput) {
         int blackPegs = 0;
         int whitePegs = 0;
-        for(int i = 0; i < CODE_SIZE; i++) {
-            if(userInput[i] == code[i]) {
+        for (int i = 0; i < MastermindUtils.CODE_SIZE; i++) {
+            if (userInput[i] == code[i]) {
                 blackPegs++;
-            } else if(arrayContains(userInput[i])) {
+            } else if (MastermindUtils.arrayContains(userInput[i], code)) {
                 whitePegs++;
             }
         }
         return buildString(blackPegs, whitePegs);
     }
 
-    private boolean arrayContains(int color) {
-        for(int i = 0; i < CODE_SIZE; i++) {
-            if(color == code[i]) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private String buildString(int blackPegs, int whitePegs) {
-        int dots = CODE_SIZE - blackPegs - whitePegs;
+        int dots = MastermindUtils.CODE_SIZE - blackPegs - whitePegs;
         return String.join("", Collections.nCopies(blackPegs, "b")) +
-            String.join("", Collections.nCopies(whitePegs, "w")) +
+                String.join("", Collections.nCopies(whitePegs, "w")) +
                 String.join("", Collections.nCopies(dots, "."));
     }
 }
