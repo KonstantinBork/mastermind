@@ -2,10 +2,12 @@ package com.sp.mastermind;
 
 import java.util.Collections;
 import java.util.Random;
+import java.util.Scanner;
 
 public class CodeMaker {
 
     private static final String STARTUP_TEXT = "Unterstützte Eingaben sind die Zahlen 1 bis 6.";
+    private static final String SUCCESS_TEXT = "Die richtige Kombination wurde gefunden.";
     private int[] code;
     private String successString;
 
@@ -31,12 +33,14 @@ public class CodeMaker {
             System.out.println(resultOutput);
             if (resultOutput.equals(successString)) {
                 isRunning = false;
+                System.out.println(SUCCESS_TEXT);
             }
         }
     }
 
     private int[] getInput() {
-        String input = System.console().readLine();
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
         if (input.length() > MastermindUtils.CODE_SIZE) {
             System.out.println(MastermindUtils.INPUT_TOO_LONG_TEXT);
         }

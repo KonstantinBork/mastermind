@@ -3,6 +3,7 @@ package com.sp.mastermind;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
+import java.util.Scanner;
 
 public class CodeBreaker {
 
@@ -20,7 +21,7 @@ public class CodeBreaker {
 
     public void loop() {
         System.out.println(STARTUP_TEXT);
-        System.out.print(Arrays.toString(code));
+        System.out.print(arrayAsString());
         boolean isRunning = true;
         while (isRunning) {
             String userInput = getInput();
@@ -28,13 +29,18 @@ public class CodeBreaker {
                 isRunning = false;
             } else {
                 changeCode();
-                System.out.println(Arrays.toString(code));
+                System.out.println(arrayAsString());
             }
         }
     }
 
+    private String arrayAsString() {
+        return Arrays.toString(code).replaceAll("\\[|\\]|,|\\s", "");
+    }
+
     private String getInput() {
-        String input = System.console().readLine();
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
         if (input.length() > MastermindUtils.CODE_SIZE) {
             System.out.println(MastermindUtils.INPUT_TOO_LONG_TEXT);
         }
