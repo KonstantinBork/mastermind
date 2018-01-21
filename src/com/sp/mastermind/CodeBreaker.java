@@ -2,7 +2,7 @@ package com.sp.mastermind;
 
 public class CodeBreaker {
 
-    public CodeBreaker() {
+    CodeBreaker() {
 
     }
 

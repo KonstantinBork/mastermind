@@ -1,9 +1,5 @@
 package com.sp.mastermind;
 
-// TODO imports
-import Integer;
-import NumberFormatException;
-
 public class Mastermind {
 
     private static final String STARTUP_TEXT = "";
@@ -31,13 +27,13 @@ public class Mastermind {
     }
 
     private static int getProgramMode() {
-        String input = System.console.readLine();
+        String input = System.console().readLine();
         int programMode;
         try {
             programMode = Integer.parseInt(input);
             while(programMode < 0 || programMode > 2) {
                 System.out.print(NOT_SUPPORTED_INPUT_TEXT);
-                input = System.console.readLine();
+                input = System.console().readLine();
                 programMode = Integer.parseInt(input);
             }
             return programMode;
