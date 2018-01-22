@@ -16,6 +16,7 @@ public class Mastermind {
         switch (programMode) {
             case 0:
                 System.out.println(GOODBYE_TEXT);
+                break;
             case 1:
                 CodeMaker codeMaker = new CodeMaker();
                 codeMaker.loop();
